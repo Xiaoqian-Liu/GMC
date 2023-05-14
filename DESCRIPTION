@@ -1,0 +1,20 @@
+Package: GMC
+Type: Package
+Title: GMC penalization methods for (grouped) variable selection in linear regression
+Version: 0.1.0
+Authors@R: c(
+  person("Xiaoqian", "Liu", email="xiaoqian.liu1025@gmail.com", role=c("aut", "cre")),
+  person("Aaron", "Molstad", email="amolstad@ufl.edu", role=c("aut")),
+  person("Eric", "Chi", email="ecchi1105@gmail.com", role=c("aut"))
+  )
+Maintainer: Xiaoqian Liu <xiaoqian.liu1025@gmail.com>
+Description: The GMC package implements the (group) GMC penalization method for (grouped) variable selection in linear regression.
+License: GPL (>= 2)
+Depends: R (>= 3.5.0), grpreg
+Imports:  MASS, Matrix
+Suggests: knitr
+VignetteBuilder: knitr
+NeedsCompilation: yes
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

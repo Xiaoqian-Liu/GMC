@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("stats", "rnorm", "sd")
+import(grpreg)
+useDynLib(GMC)
