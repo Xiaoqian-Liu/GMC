@@ -94,6 +94,7 @@ path_Lasso <- grpreg(X, y, group, group.multiplier=K, penalty="grLasso")
 path_MCP <- grpreg(X, y, group, group.multiplier=K, penalty="grMCP")
 # We simply use the unexported function in 'grpreg' to plot the solution paths.
 grpreg:::plot.grpreg(path_Lasso)
+grpreg:::plot.grpreg(path_MCP)
 grpreg:::plot.grpreg(path_GMC)
 ```
 
