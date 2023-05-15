@@ -7,7 +7,8 @@ The `GMC` package implements the (group) GMC penalization methods for (grouped) 
 To install the latest development version from GitHub:
 
 ```{r}
-remotes::install_github("Xiaoqian-Liu/GMC")
+# install.packages("devtools")
+devtools::install_github("Xiaoqian-Liu/GMC", build_vignettes = TRUE)
 ```
 
 ## Getting started
