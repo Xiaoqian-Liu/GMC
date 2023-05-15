@@ -1,0 +1,102 @@
+---
+title: "Introduction to GMC"
+author: "Xiaoqian Liu, Aaron J. Molstad, and Eric C. Chi"
+bibliography: GMC-ref.bib
+output:
+  html_document: null
+  pdf_document: default
+  toc: yes
+  toc_float:
+    collapsed: no
+biblio-style: unsrt
+vignette: |
+  %\VignetteIndexEntry{Introduction to GMC}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+
+<style>
+img{ background:none; border:none; box-shadow:none; }
+</style>
+
+\[
+\newcommand{\vbeta}{\boldsymbol{\beta}}
+\]
+
+```{r echo=FALSE, cache=FALSE}
+set.seed(12345)
+knitr::opts_chunk$set(
+  cache=TRUE,
+  comment = '', 
+  fig.width = 5, 
+  fig.height = 5,
+  fig.align='center'
+)
+```
+## Overview
+The `GMC` package implements the group GMC method for grouped variable selection in linear regression proposed  in @Liu-grGMC, which includes GMC for individual variable selection as a special case. The GMC penalization method was originally proposed by @GMC, which is a convex-nonconvex penalization strategy. The main idea of convex-noncovex penalization is to design a nonconvex penalty function while maintaining the convexity of the optimization problem. Motivation of the convex-nonconvex penalization can be found in @GMC and @Liu-grGMC. The group GMC method is a generalization of GMC for grouped variable selection. The `GMC` package implements the group GMC method and provides functions to fit the group GMC model, compute its solution path, and carry out cross-validation. This vignette offers a breif introduction to the basic use of `GMC`.
+
+## Example 
+
+We use a toy simulation example to illustrate how to use the `GMC` package.
+
+```{r}
+library(GMC)
+set.seed(1234)
+n <- 100
+p <- 20
+# Set the true coefficients
+beta <- rep(0, p)
+beta[1:8] <- c(1,2,3,4,-1,-2,-3,-4)
+# Set the group information: 5 equal length groups
+group <- rep(1:5, each=p/5)
+# set the group weights
+gp <- unique(group)
+J <- length(gp)
+K <- rep(0,J)
+for (j in 1:J) {
+  K[j] <- sqrt(length(which(group==gp[j])))
+}
+
+# design matrix
+X <- matrix(rnorm(n*p), nrow = n)
+# response
+y <- as.vector(X%*%beta+rnorm(n))
+```
+
+To fit a group GMC model, users need to set a value to the convexity-preserving parameter $\alpha$. Typically, we set $\alpha \in (0.5, 1)$. 'GMC' set $\alpha=0.8$ by default. 
+
+```{r}
+# fit group GMC at a given lambda value
+fit_GMC <- GMC(y=y, X=X, alpha=0.8, group=group, group.multiplier=K, lambdaSeq=0.1, ShowTime=TRUE)
+# fit a solution path at a grid of 20 lambda values
+path_GMC <- GMC(y=y, X=X, alpha=0.8, group=group, group.multiplier=K, nlambda = 20, ShowTime=TRUE)
+```
+
+Note that 'GMC' will automatically compute a $\lambda_{\max}$ which is the samllest $\lambda$ value that produce a zero solution. The generated $\lambda$ sequence from 'GMC' is a decreasing sequence which starts from $\lambda_{\max}$ and ends at $lambda.min*\lambda_{\max}$, where users can specify the ratio 'lambda.min'.
+
+To conduct cross-validation for selecting $\lambda$, users can use the 'cv.GMC' function. 'cv.GMC' provides two rules to select $\lambda$. One is the classical cross-validation, and the other one is the '1se' rule. 
+
+```{r}
+# cross-validation
+CV_GMC <- cv.GMC(y=y, X=X, alpha=0.8, group=group, group.multiplier=K, nlambda = 20)
+# lambda selected by CV
+lambda_min <- CV_GMC$lambda_min
+# lambda selected by 1se
+lambda_1se <- CV_GMC$lambda_1se
+```
+
+We compare the solution path of group GMC to those of group Lasso and group MCP (using the 'grpreg' package).
+
+```{r}
+path_Lasso <- grpreg(X, y, group, group.multiplier=K, penalty="grLasso")
+path_MCP <- grpreg(X, y, group, group.multiplier=K, penalty="grMCP")
+# We simply use the unexported function in 'grpreg' to plot the solution paths.
+grpreg:::plot.grpreg(path_Lasso)
+grpreg:::plot.grpreg(path_GMC)
+```
+
+The solution path of group GMC is more flat than the other two, indicating its estimates are less shrunk and it's more robust against the tuning parameter selection. See @Liu-grGMC for more discussion.
+
+## References

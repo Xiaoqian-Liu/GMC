@@ -11,8 +11,10 @@ Maintainer: Xiaoqian Liu <xiaoqian.liu1025@gmail.com>
 Description: The GMC package implements the (group) GMC penalization method for (grouped) variable selection in linear regression.
 License: GPL (>= 2)
 Depends: R (>= 3.5.0), grpreg
-Imports:  MASS, Matrix
-Suggests: knitr
+Imports: MASS, Matrix
+Suggests: 
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: yes
 Encoding: UTF-8
