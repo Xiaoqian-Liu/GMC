@@ -14,5 +14,4 @@ Please reference the following manuscript when citing this package.  Thank you!
   journal={arXiv preprint arXiv:2111.15075},
   year={2021}
 }
-
 ```
