@@ -128,7 +128,7 @@ cv.GMC <- function(y, X, alpha=0.8, group=1:ncol(X), group.multiplier, nlambda=5
 #' @param X The design matrix
 #' @param fold The fold indices
 #' @param cv.args The arguments
-#' @export
+
 cv_fold <- function(i, y, X, fold, cv.args) {
   cv.args$X <- X[fold!=i, , drop=FALSE]
   cv.args$y <- y[fold!=i]
