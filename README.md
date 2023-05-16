@@ -13,7 +13,7 @@ devtools::install_github("Xiaoqian-Liu/GMC", build_vignettes = TRUE)
 
 ## Getting started
 
-Please see the vignettes file 'Introduction to GMC' for a brief introduction about this package and how to use it.
+Please see this [vignette](https://xiaoqian-liu.github.io/files/Intro-to-GMC.html) for a brief introduction about this package and how to use it.
 
 ## Citing the package
 
