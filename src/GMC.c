@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <R_ext/BLAS.h>
+#include <stdlib.h>
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
