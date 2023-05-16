@@ -1,14 +1,19 @@
 # GMC penalization methods for (grouped) variable selection in linear regression
 
-The `GMC` package implements the (group) GMC penalization methods for (grouped) variable selection in linear regression.
+The `GMC` package implements the (group) GMC penalization methods for (grouped) variable selection in linear regression. 
 
 ## Installation
 
 To install the latest development version from GitHub:
 
 ```{r}
-remotes::install_github("Xiaoqian-Liu/GMC")
+# install.packages("devtools")
+devtools::install_github("Xiaoqian-Liu/GMC", build_vignettes = TRUE)
 ```
+
+## Getting started
+
+Please see this [vignette](https://xiaoqian-liu.github.io/files/Intro-to-GMC.html) for a brief introduction about this package and how to use it.
 
 ## Citing the package
 
