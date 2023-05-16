@@ -1158,7 +1158,7 @@ void PDHG(double *x, double *v, double *y, matrix A, matrix Z,  int *group, doub
 
     double primal;  // the primal residual in each iteration
     double dual;  // the dual residual in each iteration
-    int stop; // the stop sign in each iteration
+    int stop = 0; // the stop sign in each iteration
 
 
     double prodx, prodx0, Zxv;
